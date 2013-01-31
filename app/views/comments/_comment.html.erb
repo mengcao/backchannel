@@ -2,6 +2,12 @@
   <div class="body">
     <%= comment.body %>
   </div>
+  <div class="votes">
+    <%= comment.votes.count %>
+  </div>
+  <div class="vote">
+    <%= link_to 'vote',new_comment_vote_path(comment) %>
+  </div>
   <p><%= link_to 'add comment',new_comment_comment_path(comment) %></p>
   <% unless comment.comments.empty? %>
     <ul class="comment_list">
