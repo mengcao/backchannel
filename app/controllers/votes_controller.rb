@@ -1,6 +1,8 @@
 class VotesController < ApplicationController
   # GET /votes
   # GET /votes.json
+  before_filter :get_parent
+
   def index
     @votes = Vote.all
 
@@ -24,7 +26,7 @@ class VotesController < ApplicationController
   # GET /votes/new
   # GET /votes/new.json
   def new
-    @vote = Vote.new
+    @vote = @parent.votes.new(params[:vote])
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,11 +42,11 @@ class VotesController < ApplicationController
   # POST /votes
   # POST /votes.json
   def create
-    @vote = Vote.new(params[:vote])
+    @vote = @parent.votes.new(params[:vote])
 
     respond_to do |format|
       if @vote.save
-        format.html { redirect_to @vote, notice: 'Vote was successfully created.' }
+        format.html { redirect_to posts_path, notice: 'Vote was successfully created.' }
         format.json { render json: @vote, status: :created, location: @vote }
       else
         format.html { render action: "new" }
@@ -79,5 +81,12 @@ class VotesController < ApplicationController
       format.html { redirect_to votes_url }
       format.json { head :no_content }
     end
+  end
+
+  protected
+  def get_parent
+    @parent = Post.find_by_id(params[:post_id]) if params[:post_id]
+    @parent = Comment.find_by_id(params[:comment_id]) if params[:comment_id]
+    redirect_to root_path unless defined?(@parent)
   end
 end

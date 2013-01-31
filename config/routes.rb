@@ -4,11 +4,13 @@ BackchannelAlpha::Application.routes.draw do
 
   resources :comments do
     resources :comments
+    resources :votes
   end
 
 
   resources :posts do
     resources :comments
+    resources :votes
   end
 
 

@@ -1,4 +1,4 @@
-<%= form_for(@vote) do |f| %>
+<%= form_for ([@parent,@vote]) do |f| %>
   <% if @vote.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@vote.errors.count, "error") %> prohibited this vote from being saved:</h2>
@@ -20,8 +20,8 @@
     <%= f.text_field :votable_type %>
   </div>
   <div class="field">
-    <%= f.label :user %><br />
-    <%= f.text_field :user %>
+    <%= f.label :user %><br/>
+    <%= select("vote","user_id",User.find(:all).collect {|u| [u.name,u.id]})%>
   </div>
   <div class="actions">
     <%= f.submit %>
