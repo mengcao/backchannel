@@ -1,6 +1,13 @@
 <h1>Listing posts</h1>
 
 <table>
+  <tr>
+    <td>title</td>
+    <td>user</td>
+    <td>edit</td>
+    <td>destroy</td>
+    <td>votes</td>
+  </tr>
 
 <% @posts.each do |post| %>
   <tr>
@@ -8,6 +15,9 @@
     <td><%= post.user.name %></td>
     <td><%= link_to 'Edit', edit_post_path(post) %></td>
     <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= post.votes.count %></td>
+    <td><%= link_to 'vote',new_post_vote_path(post)%></td>
+    <td><%= link_to 'un-vote' %></td>
   </tr>
 <% end %>
 </table>
