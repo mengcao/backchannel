@@ -15,9 +15,12 @@
   <b>Votes:</b>
   <%= @post.votes.count %>
 </p>
-<p>
-  <%= button_to 'vote',:controller => 'votes',:action => 'create',:post_id => @post.id %>
-</p>
+<% if @post.votes.where(:user_id => 1).count == 0 %>
+    <%= button_to 'vote',:controller => 'votes',:action => 'create',:post_id => @post.id %>
+<% end %>
+<% if @post.votes.where(:user_id => 1).count != 0 %>
+    <%= button_to 'un-vote', Vote.where(:votable_id => @post.id).where(:user_id => 1).first,:method => :delete %>
+<% end %>
 
 <h2>comments: </h2>
 

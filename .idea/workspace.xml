@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c614ee3f-39ad-423a-a1cf-e03243adc223" name="Default" comment="votes feature&#10;">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/votes/_vote.html.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/development.sqlite3" afterPath="$PROJECT_DIR$/db/development.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/votes_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/votes_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/vote.rb" afterPath="$PROJECT_DIR$/app/models/vote.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/comments/_comment.html.erb" afterPath="$PROJECT_DIR$/app/views/comments/_comment.html.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/posts/index.html.erb" afterPath="$PROJECT_DIR$/app/views/posts/index.html.erb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/posts/show.html.erb" afterPath="$PROJECT_DIR$/app/views/posts/show.html.erb" />
     </list>
@@ -31,7 +26,7 @@
       <file leaf-file-name="index.html.erb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/posts/index.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="14" selection-start="797" selection-end="797" vertical-scroll-proportion="-14.375">
+            <state line="19" column="0" selection-start="450" selection-end="819" vertical-scroll-proportion="-11.875">
               <folding />
             </state>
           </provider>
@@ -46,10 +41,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="_vote.html.erb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="_vote.html.erb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/votes/_vote.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="53" selection-start="345" selection-end="345" vertical-scroll-proportion="0.15625">
+            <state line="5" column="53" selection-start="345" selection-end="345" vertical-scroll-proportion="-3.125">
               <folding />
             </state>
           </provider>
@@ -64,10 +59,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="show.html.erb" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="show.html.erb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/posts/show.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="3" selection-start="73" selection-end="73" vertical-scroll-proportion="0.625">
+            <state line="21" column="56" selection-start="466" selection-end="466" vertical-scroll-proportion="0.5625">
               <folding />
             </state>
           </provider>
@@ -141,11 +136,11 @@
         <option value="$PROJECT_DIR$/app/views/comments/_form.html.erb" />
         <option value="$PROJECT_DIR$/app/views/votes/_form.html.erb" />
         <option value="$PROJECT_DIR$/app/models/vote.rb" />
-        <option value="$PROJECT_DIR$/app/views/posts/show.html.erb" />
         <option value="$PROJECT_DIR$/app/controllers/votes_controller.rb" />
         <option value="$PROJECT_DIR$/app/views/comments/_comment.html.erb" />
         <option value="$PROJECT_DIR$/app/views/votes/_vote.html.erb" />
         <option value="$PROJECT_DIR$/app/views/posts/index.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/posts/show.html.erb" />
       </list>
     </option>
   </component>
@@ -810,13 +805,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/posts/show.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="3" selection-start="73" selection-end="73" vertical-scroll-proportion="0.625">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/votes/_form.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="20" selection-start="634" selection-end="634" vertical-scroll-proportion="-14.375">
@@ -838,16 +826,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/posts/index.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/views/votes/_vote.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="14" selection-start="797" selection-end="797" vertical-scroll-proportion="-14.375">
+        <state line="5" column="53" selection-start="345" selection-end="345" vertical-scroll-proportion="-3.125">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/votes/_vote.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/views/posts/index.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="53" selection-start="345" selection-end="345" vertical-scroll-proportion="0.15625">
+        <state line="19" column="0" selection-start="450" selection-end="819" vertical-scroll-proportion="-11.875">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/posts/show.html.erb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="56" selection-start="466" selection-end="466" vertical-scroll-proportion="0.5625">
           <folding />
         </state>
       </provider>
