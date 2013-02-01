@@ -15,12 +15,7 @@
   <b>Votes:</b>
   <%= @post.votes.count %>
 </p>
-<% if @post.votes.where(:user_id => 1).count == 0 %>
-    <%= button_to 'vote',:controller => 'votes',:action => 'create',:post_id => @post.id %>
-<% end %>
-<% if @post.votes.where(:user_id => 1).count != 0 %>
-    <%= button_to 'un-vote', Vote.where(:votable_id => @post.id).where(:user_id => 1).first,:method => :delete %>
-<% end %>
+<%= render :partial => "votes/vote",:locals => {:votable => @post} %>
 
 <h2>comments: </h2>
 
@@ -28,7 +23,6 @@
 
 <ul class="comment_list">
   <%= render :partial => "comments/comment",:collection => @post.comments %>
-
 </ul>
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', posts_path %>

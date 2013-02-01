@@ -1,6 +1,11 @@
-<% if collection.where(:user_id => 1).count == 0 %>
-    <td><%= button_to 'vote',:controller => 'votes',:action => 'create',:post_id => post.id %></td>
+<% if votable.votes.where(:user_id => 1).count == 0 %>
+    <% if votable.is_a?(Post) %>
+        <td><%= button_to 'vote',:controller => 'votes',:action => 'create',:post_id => votable.id %></td>
+    <% end %>
+    <% if votable.is_a?(Comment) %>
+        <td><%= button_to 'vote',:controller => 'votes',:action => 'create',:comment_id => votable.id %></td>
+    <% end %>
 <% end %>
-<% if collection.where(:user_id => 1).count != 0 %>
-    <td><%= button_to 'un-vote', Vote.where(:votable_id => post.id).where(:user_id => 1).first,:method => :delete %></td>
+<% if votable.votes.where(:user_id => 1).count != 0 %>
+    <td><%= button_to 'un-vote', Vote.where(:votable_id => votable.id).where(:user_id => 1).first,:method => :delete %></td>
 <% end %>

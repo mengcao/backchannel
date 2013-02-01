@@ -4,12 +4,7 @@
   </div>
   <div class="votes">
     <%= comment.votes.count %>
-    <% if comment.votes.where(:user_id => 1).count == 0 %>
-      <td><%= button_to 'vote',:controller => 'votes',:action => 'create',:comment_id => comment.id %></td>
-    <% end %>
-    <% if comment.votes.count != 0 %>
-      <td><%= button_to 'un-vote', Vote.where(:votable_id => comment.id).where(:user_id => 1).first,:method => :delete %></td>
-    <% end %>
+    <%= render :partial => "votes/vote",:locals => {:votable => comment} %>
   </div>
   <p><%= link_to 'add comment',new_comment_comment_path(comment) %></p>
   <% unless comment.comments.empty? %>

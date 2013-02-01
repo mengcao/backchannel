@@ -16,13 +16,7 @@
     <td><%= link_to 'Edit', edit_post_path(post) %></td>
     <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
     <td><%= post.votes.count %></td>
-
-    <% if post.votes.where(:user_id => 1).count == 0 %>
-        <td><%= button_to 'vote',:controller => 'votes',:action => 'create',:post_id => post.id %></td>
-    <% end %>
-    <% if post.votes.where(:user_id => 1).count != 0 %>
-        <td><%= button_to 'un-vote', Vote.where(:votable_id => post.id).where(:user_id => 1).first,:method => :delete %></td>
-    <% end %>
+    <%= render :partial => "votes/vote",:locals => {:votable => post} %>
   </tr>
 <% end %>
 </table>
