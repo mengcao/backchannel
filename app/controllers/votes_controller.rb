@@ -2,6 +2,7 @@ class VotesController < ApplicationController
   # GET /votes
   # GET /votes.json
   before_filter :get_parent
+  skip_before_filter :get_parent,:only => :destroy
 
   def index
     @votes = Vote.all
@@ -42,11 +43,13 @@ class VotesController < ApplicationController
   # POST /votes
   # POST /votes.json
   def create
-    @vote = @parent.votes.new(params[:vote])
+    @vote = @parent.votes.new
+#   change this later for user login feature
+    @vote.user_id = 1
 
     respond_to do |format|
       if @vote.save
-        format.html { redirect_to post_path(@vote.post), notice: 'Vote was successfully created.' }
+        format.html { redirect_to :back, notice: 'Vote was successfully created.' }
         format.json { render json: @vote, status: :created, location: @vote }
       else
         format.html { render action: "new" }
@@ -78,7 +81,7 @@ class VotesController < ApplicationController
     @vote.destroy
 
     respond_to do |format|
-      format.html { redirect_to votes_url }
+      format.html { redirect_to :back,:notice => 'un-vote successfully.' }
       format.json { head :no_content }
     end
   end

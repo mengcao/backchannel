@@ -1,12 +1,8 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Title:</b>
-  <%= @post.title %>
-</p>
+<h1>Title: <%= @post.title %></h1>
 
 <p>
-  <b>Body:</b>
   <%= @post.body %>
 </p>
 
@@ -18,6 +14,9 @@
 <p>
   <b>Votes:</b>
   <%= @post.votes.count %>
+</p>
+<p>
+  <%= button_to 'vote',:controller => 'votes',:action => 'create',:post_id => @post.id %>
 </p>
 
 <h2>comments: </h2>
