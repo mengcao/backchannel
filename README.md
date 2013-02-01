@@ -1,0 +1,1 @@
+try to dry the code, especially the vote part. create a partial form for the vote section. 
