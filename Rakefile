@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-BackchannelAlpha::Application.load_tasks
+Backchannel::Application.load_tasks

@@ -1,6 +1,9 @@
-BackchannelAlpha::Application.routes.draw do
-  resources :votes
+Backchannel::Application.routes.draw do
+  get 'users/welcome'
 
+#  match 'users/login' => 'users#login'
+
+  resources :votes
 
   resources :comments do
     resources :comments

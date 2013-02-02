@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   # GET /users
   # GET /users.json
+  skip_before_filter :login?
+
   def index
     @users = User.all
 
@@ -79,5 +81,20 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url }
       format.json { head :no_content }
     end
+  end
+
+  def login
+    @user = User.where(:name => params[:name]).where(:password => params[:password]).first
+    if @user
+      session[:user_id] = @user.id
+      redirect_to posts_path
+    else
+      redirect_to new_user_path
+    end
+  end
+
+  def logout
+    session[:user_id] = nil
+    redirect_to 'users/welcome'
   end
 end
