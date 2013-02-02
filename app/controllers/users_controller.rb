@@ -43,6 +43,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(params[:user])
+    @user.admin = false
 
     respond_to do |format|
       if @user.save
@@ -87,7 +88,7 @@ class UsersController < ApplicationController
     @user = User.where(:name => params[:name]).where(:password => params[:password]).first
     if @user
       session[:user_id] = @user.id
-      redirect_to posts_path
+      redirect_to '/users/panel'
     else
       redirect_to new_user_path
     end
@@ -95,6 +96,6 @@ class UsersController < ApplicationController
 
   def logout
     session[:user_id] = nil
-    redirect_to 'users/welcome'
+    redirect_to '/users/panel'
   end
 end

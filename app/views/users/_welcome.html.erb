@@ -1,0 +1,2 @@
+<h1>Welcome, <%= User.find_by_id(session[:user_id]).name %></h1>
+<%= button_to 'log out',:controller => :users,:action => :logout %>

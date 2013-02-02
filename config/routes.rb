@@ -1,7 +1,8 @@
 Backchannel::Application.routes.draw do
-  get 'users/welcome'
+  get 'users/panel'
 
-#  match 'users/login' => 'users#login'
+  match 'users/login' => 'users#login'
+  match 'users/logout' => 'users#logout'
 
   resources :votes
 
