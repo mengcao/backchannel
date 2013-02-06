@@ -1,7 +1,9 @@
 class CommentsController < ApplicationController
   # GET /comments
   # GET /comments.json
-  before_filter :get_parent
+  before_filter :get_parent,:owner?
+  skip_before_filter :owner?,:only => [:index,:show,:new,:create]
+  skip_before_filter :get_parent,:only => [:index,:show,:edit,:update,:destroy]
 
   def index
     @comments = Comment.all
@@ -43,6 +45,7 @@ class CommentsController < ApplicationController
   # POST /comments.json
   def create
     @comment = @parent.comments.new(params[:comment])
+    @comment.user_id = session[:user_id]
 
     respond_to do |format|
       if @comment.save
@@ -78,7 +81,7 @@ class CommentsController < ApplicationController
     @comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to comments_url }
+      format.html { redirect_to :back }
       format.json { head :no_content }
     end
   end
@@ -88,5 +91,12 @@ class CommentsController < ApplicationController
     @parent = Post.find_by_id(params[:post_id]) if params[:post_id]
     @parent = Comment.find_by_id(params[:comment_id]) if params[:comment_id]
     redirect_to root_path unless defined?(@parent)
+  end
+
+  def owner?
+    @comment = Comment.find(params[:id])
+    if @comment.user_id != session[:user_id]
+      redirect_to post_path(@comment.post), notice: 'You are not the owner of this comment.'
+    end
   end
 end

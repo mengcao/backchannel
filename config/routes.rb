@@ -1,5 +1,8 @@
 Backchannel::Application.routes.draw do
-  get 'users/panel'
+  resources :categories
+
+
+  get '/users/panel'
 
   match 'users/login' => 'users#login'
   match 'users/logout' => 'users#logout'

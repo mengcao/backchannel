@@ -45,7 +45,7 @@ class VotesController < ApplicationController
   def create
     @vote = @parent.votes.new
 #   change this later for user login feature
-    @vote.user_id = 1
+    @vote.user_id = session[:user_id]
 
     respond_to do |format|
       if @vote.save

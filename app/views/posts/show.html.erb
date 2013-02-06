@@ -1,28 +1,39 @@
-<p id="notice"><%= notice %></p>
+<div class="title">
+    <h1><%= @post.title %></h1>
+</div>
 
-<h1>Title: <%= @post.title %></h1>
+<div class="info">
+    <p>creator: <%= @post.user.name %> | category: <%= @post.category.name %></p>
+</div>
 
-<p>
-  <%= @post.body %>
-</p>
+<div class="vote">
+    <%= render :partial => "votes/vote",:locals => {:votable => @post} %>
+</div>
 
-<p>
-  <b>User:</b>
-  <%= @post.user.name %>
-</p>
+<div class="action">
+    <% if session[:user_id] %>
+        <% if @post.user_id == session[:user_id] %>
+            <%= link_to 'Edit', edit_post_path(@post) %> | <%= link_to 'Delete',@post,:method => :delete,data:{confirm: 'are you sure? '} %> |
+        <% end %>
+        <%= link_to "Add comment",new_post_comment_path(@post) %>
+    <% end %>
+</div>
 
-<p>
-  <b>Votes:</b>
-  <%= @post.votes.count %>
-</p>
-<%= render :partial => "votes/vote",:locals => {:votable => @post} %>
+<hr/>
 
-<h2>comments: </h2>
+<div class="body">
+    <p>
+      <%= @post.body %>
+    </p>
+</div>
 
-<p><%= link_to "add comment",new_post_comment_path(@post) %></p>
+<hr/>
 
-<ul class="comment_list">
-  <%= render :partial => "comments/comment",:collection => @post.comments %>
-</ul>
-<%= link_to 'Edit', edit_post_path(@post) %> |
+<div class="comment">
+    <h2>comments: </h2>
+
+    <ul class="comment_list">
+      <%= render :partial => "comments/comment",:collection => @post.comments %>
+    </ul>
+</div>
 <%= link_to 'Back', posts_path %>

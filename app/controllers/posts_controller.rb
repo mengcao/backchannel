@@ -1,7 +1,10 @@
 class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
+  before_filter :owner?
   skip_before_filter :login?, :only => [:index,:show]
+  skip_before_filter :owner?, :only => [:index,:show,:create,:new]
+
   def index
     @posts = Post.all
 
@@ -42,6 +45,7 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(params[:post])
+    @post.user_id = session[:user_id]
 
     respond_to do |format|
       if @post.save
@@ -79,6 +83,13 @@ class PostsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to posts_url }
       format.json { head :no_content }
+    end
+  end
+
+  def owner?
+    @post = Post.find(params[:id])
+    if @post.user_id != session[:user_id]
+      redirect_to post_path(@post), notice: 'You are not the owner of this post.'
     end
   end
 end

@@ -15,10 +15,6 @@
     <%= f.label :body %><br />
     <%= f.text_area :body %>
   </div>
-  <div class="field">
-    <%= f.label :user %><br/>
-    <%= select("comment","user_id",User.find(:all).collect {|u| [u.name,u.id]})%>
-  </div>
   <div class="actions">
     <%= f.submit %>
   </div>

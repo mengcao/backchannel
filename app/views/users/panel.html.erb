@@ -1,5 +1,5 @@
 <% if session[:user_id] %>
-    <%= render :partial => 'users/welcome' %>
+    <%= render :partial => 'welcome' %>
 <% else %>
-    <%= render :partial => 'users/login_form' %>
+    <%= render :partial => 'login_form' %>
 <% end %>

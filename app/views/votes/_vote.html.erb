@@ -1,11 +1,25 @@
-<% if votable.votes.where(:user_id => 1).count == 0 %>
-    <% if votable.is_a?(Post) %>
-        <td><%= button_to 'vote',:controller => 'votes',:action => 'create',:post_id => votable.id %></td>
+<% count = votable.count_vote(session[:user_id]) %>
+<p>
+    <% if count[0] == 0 %>
+        <%= count[1] %> people voted
+    <% else %>
+        you and <%= count[1] %> other people voted
     <% end %>
-    <% if votable.is_a?(Comment) %>
-        <td><%= button_to 'vote',:controller => 'votes',:action => 'create',:comment_id => votable.id %></td>
+</p>
+<p>
+    <% if session[:user_id] %>
+        <% if votable.user_id != session[:user_id] %>
+            <% if votable.votes.where(:user_id => session[:user_id]).count == 0 %>
+                <% if votable.is_a?(Post) %>
+                    <%= button_to 'vote',:controller => 'votes',:action => 'create',:post_id => votable.id %>
+                <% end %>
+                <% if votable.is_a?(Comment) %>
+                    <%= button_to 'vote',:controller => 'votes',:action => 'create',:comment_id => votable.id %>
+                <% end %>
+            <% end %>
+            <% if votable.votes.where(:user_id => session[:user_id]).count != 0 %>
+                <%= button_to 'un-vote', Vote.where(:votable_id => votable.id).where(:user_id => session[:user_id]).first,:method => :delete %>
+            <% end %>
+        <% end %>
     <% end %>
-<% end %>
-<% if votable.votes.where(:user_id => 1).count != 0 %>
-    <td><%= button_to 'un-vote', Vote.where(:votable_id => votable.id).where(:user_id => 1).first,:method => :delete %></td>
-<% end %>
+</p>
