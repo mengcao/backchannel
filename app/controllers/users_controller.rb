@@ -85,7 +85,7 @@ class UsersController < ApplicationController
   end
 
   def login
-    @user = User.where(:name => params[:name]).where(:password => params[:password]).first
+    @user = User.where(:name => params[:login][:name]).where(:password => params[:login][:password]).first
     if @user
       session[:user_id] = @user.id
       redirect_to :back

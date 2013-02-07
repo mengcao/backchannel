@@ -1,13 +1,13 @@
 <h1>Login</h1>
-<%= form_tag(:controller => :users,:action => :login) do %>
+<%= form_tag('users/login')  do %>
     <table>
       <tr>
-        <td><%= label_tag(:name,'name') %></td>
-        <td><%= text_field_tag(:name) %></td>
+        <td><%= label_tag('login[name]','name') %></td>
+        <td><%= text_field_tag('login[name]') %></td>
       </tr>
       <tr>
-        <td><%= label_tag(:password,'password') %></td>
-        <td><%= text_field_tag(:password) %></td>
+        <td><%= label_tag('login[password]','password') %></td>
+        <td><%= password_field_tag('login[password]') %></td>
       </tr>
       <tr>
         <td><%= submit_tag('login') %></td>

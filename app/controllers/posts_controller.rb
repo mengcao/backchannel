@@ -6,7 +6,7 @@ class PostsController < ApplicationController
   skip_before_filter :owner?, :only => [:index,:show,:create,:new]
 
   def index
-    @posts = Post.all
+    @posts = Post.search(params[:search])
 
     respond_to do |format|
       format.html # index.html.erb
