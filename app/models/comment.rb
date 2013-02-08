@@ -24,4 +24,10 @@ class Comment < ActiveRecord::Base
 
     return @votes_count
   end
+
+  def update_post
+    @post = self.post
+    @post.updated_at=self.updated_at
+    @post.save
+  end
 end
