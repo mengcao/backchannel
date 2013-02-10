@@ -11,7 +11,6 @@ class Vote < ActiveRecord::Base
 
   def post
     return @post if defined?(@post)
-    @post = votable.is_a?(Post) ? votable : votable.post
+    @post = self.votable.is_a?(Post) ? self.votable : self.votable.post
   end
-
 end

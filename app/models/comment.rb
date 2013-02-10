@@ -1,4 +1,5 @@
 class Comment < ActiveRecord::Base
+  include VotablesHelper
   belongs_to :user
   belongs_to :commentable,:polymorphic => true
   has_many :comments,:as => :commentable,:dependent => :destroy
@@ -8,21 +9,7 @@ class Comment < ActiveRecord::Base
 
   def post
     return @post if defined?(@post)
-    @post = commentable.is_a?(Post) ? commentable : commentable.post
-  end
-
-  def count_vote (user_id)
-    @votes = self.votes
-    @votes_count = Array.new(2)
-    if @votes.where(:user_id => user_id).count != 0
-      @votes_count[0] = 1
-      @votes_count[1] = self.votes.count - 1
-    else
-      @votes_count[0] = 0
-      @votes_count[1] = self.votes.count
-    end
-
-    return @votes_count
+    @post = self.commentable.is_a?(Post) ? self.commentable : self.commentable.post
   end
 
   def update_post

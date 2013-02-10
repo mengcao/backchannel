@@ -2,8 +2,8 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   before_filter :owner?
-  skip_before_filter :login?, :only => [:index,:show]
-  skip_before_filter :owner?, :only => [:index,:show,:create,:new]
+  skip_before_filter :login?, :only => [:index,:show,:toggle_voters]
+  skip_before_filter :owner?, :only => [:index,:show,:create,:new,:toggle_voters]
 
   def index
     @posts = Post.search(params[:search])
@@ -91,5 +91,16 @@ class PostsController < ApplicationController
     if @post.user_id != session[:user_id]
       redirect_to post_path(@post), notice: 'You are not the owner of this post.'
     end
+  end
+
+  def toggle_voters
+    if session[:show_voters]
+      if session[:show_voters][:id]
+        session[:show_voters][:id] = nil
+      else
+        session[:show_voters][:id] = 1
+      end
+    end
+    redirect_to :back
   end
 end

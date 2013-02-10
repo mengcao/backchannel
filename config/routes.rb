@@ -16,6 +16,9 @@ Backchannel::Application.routes.draw do
 
 
   resources :posts do
+    member do
+      get 'toggle_voters'
+    end
     resources :comments
     resources :votes
   end
