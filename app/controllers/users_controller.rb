@@ -88,6 +88,7 @@ class UsersController < ApplicationController
     @user = User.where(:name => params[:login][:name]).where(:password => params[:login][:password]).first
     if @user
       session[:user_id] = @user.id
+      session[:user_admin] = @user.admin
       redirect_to :back
     else
       redirect_to new_user_path
@@ -96,6 +97,7 @@ class UsersController < ApplicationController
 
   def logout
     session[:user_id] = nil
+    session[:user_admin] = nil
     redirect_to :back
   end
 end
