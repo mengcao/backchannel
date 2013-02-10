@@ -1,4 +1,5 @@
 module VotablesHelper
+  attr_accessor :show_voters
   def count_vote (user_id)
     @votes = self.votes
     @votes_count = Array.new(2)

@@ -11,7 +11,14 @@ class Post < ActiveRecord::Base
     @results = self.order('updated_at DESC')
     if criteria
       if criteria[:content] != ''
+        @comment_results = Comment.where('body like ?',"%#{criteria[:content]}%")
         @results = @results.where('body like ? OR title like ?', "%#{criteria[:content]}%","%#{criteria[:content]}%")
+        @comment_results.each do |r|
+          p = r.post
+          if !@results.include?(p)
+            @results << p
+          end
+        end
       end
       if criteria[:user_id] != ''
         @results = @results.where(:user_id => criteria[:user_id])
@@ -20,6 +27,6 @@ class Post < ActiveRecord::Base
         @results = @results.where(:category_id => criteria[:category_id])
       end
     end
-    return @results
+    return @results.where(nil)
   end
 end

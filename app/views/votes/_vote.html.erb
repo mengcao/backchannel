@@ -1,8 +1,9 @@
 <% count = votable.count_vote(session[:user_id]) %>
 <% voters = votable.voters(session[:user_id]) %>
 <p>
+  <% if count.sum != 0 %>
     <% if count[0] == 0 %>
-      <% if session[:show_voters] == true %>
+      <% if votable.show_voters == true %>
           <% voters.each do |v| %>
               <% if v != voters.last %>
                   <%= v.name %>,
@@ -16,9 +17,10 @@
           <%= link_to "#{count[1]}",:controller => :posts,:action =>:toggle_voters %> people voted
       <% end %>
     <% elsif count[1] == 0%>
-      you
-        you and
-      <% if session[:show_voters] == true %>
+      you voted
+    <% else %>
+      you and
+      <% if votable.show_voters == true %>
         <% voters.each do |v| %>
           <% if v != voters.last %>
             <%= v.name %>,
@@ -32,6 +34,7 @@
         <%= link_to "#{count[1]}",:controller => :posts,:action =>:toggle_voters %> other people voted
       <% end %>
     <% end %>
+  <% end %>
 </p>
 
 <p>
