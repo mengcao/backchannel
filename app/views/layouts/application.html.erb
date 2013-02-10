@@ -9,16 +9,22 @@
 <body>
 <p id="notice"><%= flash[:notice] %></p>
 <p id="error"><%= flash[:error] %></p>
-<p id="session"><%= session[:show_voters] %></p>
-<% if session[:user_id] %>
-    <%= render :partial => 'users/welcome' %>
-<% else %>
-    <%= render :partial => 'users/login_form' %>
-<% end %>
+<table>
+  <tr>
+    <td width="40%" valign="top" bgcolor="#E0F8F7" >
+        <% if session[:user_id] %>
+            <%= render :partial => 'users/welcome' %>
+        <% else %>
+            <%= render :partial => 'users/login_form' %>
+        <% end %>
+    </td>
 
-<hr/>
+    <td width="5%"></td>
 
-<%= yield %>
-
+    <td>
+        <%= yield %>
+    </td>
+  </tr>
+</table>
 </body>
 </html>

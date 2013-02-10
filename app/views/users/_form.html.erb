@@ -19,10 +19,14 @@
       <%= f.label :password %><br />
       <%= f.text_field :password %>
     </div>
-    <div class="field">
-      <%= f.label :admin %><br />
-      <%= select(:user, :admin, options_for_select([['Yes', true], ['No', false]], @user.admin))%>
-    </div>
+
+    <% if session[:user_admin] == true %>
+        <div class="field">
+        <%= f.label :admin %><br />
+        <%= select(:user, :admin, options_for_select([['Yes', true], ['No', false]], @user.admin))%>
+        </div>
+    <% end %>
+
     <div class="actions">
       <%= f.submit %>
     </div>
