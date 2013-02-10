@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
   before_filter :owner?
+  before_filter :login?
   skip_before_filter :login?, :only => [:index,:show,:toggle_voters]
   skip_before_filter :owner?, :only => [:index,:show,:create,:new,:toggle_voters]
 
@@ -18,10 +19,6 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     @post = Post.find(params[:id])
-    if !params[:show_voters]
-      params[:show_voters] = true
-    end
-    @post.show_voters = params[:show_voters]
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @post }
@@ -97,7 +94,11 @@ class PostsController < ApplicationController
   end
 
   def toggle_voters
-    params[:show_voters] = true
+      if session[:show_voters] == true
+        session[:show_voters] = false
+      else
+        session[:show_voters] = true
+      end
     redirect_to :back
   end
 end

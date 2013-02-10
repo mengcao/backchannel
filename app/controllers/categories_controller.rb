@@ -1,6 +1,8 @@
 class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.json
+  before_filter :login?, :admin?
+
   def index
     @categories = Category.all
 

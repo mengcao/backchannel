@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   # GET /users
   # GET /users.json
-  skip_before_filter :login?
+  before_filter :login?, :except => [:new, :login, :create]
+  before_filter :admin?, :except => [:login, :logout]
 
   def index
     @users = User.all
@@ -47,7 +48,11 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        if (session[:user_admin] == true)
+          format.html { redirect_to @user, notice: 'User was successfully created.' }
+        else
+          format.html { redirect_to :root, notice: 'User was successfully created.  Please login when ready.'}
+        end
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }

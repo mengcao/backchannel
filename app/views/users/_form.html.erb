@@ -17,7 +17,10 @@
     </div>
     <div class="field">
       <%= f.label :password %><br />
-      <%= f.text_field :password %>
+      <%= f.password_field :password, :value => @user.password %>
+      <br/>
+      <%= f.label :user, :password %> <br/>
+      <%= f.password_field :password_confirmation, :value => @user.password %>
     </div>
 
     <% if session[:user_admin] == true %>

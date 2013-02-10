@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   # GET /comments
   # GET /comments.json
-  before_filter :get_parent,:owner?
+  before_filter :get_parent,:owner?,:login?
   skip_before_filter :owner?,:only => [:index,:show,:new,:create]
   skip_before_filter :get_parent,:only => [:index,:show,:edit,:update,:destroy]
 
@@ -63,10 +63,10 @@ class CommentsController < ApplicationController
   # PUT /comments/1.json
   def update
     @comment = Comment.find(params[:id])
-    @post = @comment.post
+
     respond_to do |format|
       if @comment.update_attributes(params[:comment])
-        format.html { redirect_to post_path(@post), notice: 'Comment was successfully updated.' }
+        format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -79,11 +79,10 @@ class CommentsController < ApplicationController
   # DELETE /comments/1.json
   def destroy
     @comment = Comment.find(params[:id])
-    @post = @comment.post
     @comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to post_path(@post) }
+      format.html { redirect_to :back }
       format.json { head :no_content }
     end
   end
