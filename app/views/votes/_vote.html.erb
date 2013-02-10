@@ -1,21 +1,38 @@
 <% count = votable.count_vote(session[:user_id]) %>
-<% show_voters = false %>
+<% voters = votable.voters(session[:user_id]) %>
 <p>
     <% if count[0] == 0 %>
-        <%= count[1] %> people voted
-    <% else %>
-        you and <%= count[1] %> other people voted
-    <% end %>
-    <%= link_to 'toggle',:controller => :posts,:action => :toggle_voters %>
-</p>
-
-<% if session[:show_voters] == true %>
-    <p>
-        <% votable.voters(session[:user_id]).each do |v| %>
-            <%= v.name %><br/>
+      <% if session[:show_voters] == true %>
+          <% voters.each do |v| %>
+              <% if v != voters.last %>
+                  <%= v.name %>,
+              <% else %>
+                  <%= v.name %>
+              <% end %>
+          <% end %>
+          voted
+          <%= link_to "hide",:controller => :posts,:action =>:toggle_voters %>
+      <% else %>
+          <%= link_to "#{count[1]}",:controller => :posts,:action =>:toggle_voters %> people voted
+      <% end %>
+    <% elsif count[1] == 0%>
+      you
+        you and
+      <% if session[:show_voters] == true %>
+        <% voters.each do |v| %>
+          <% if v != voters.last %>
+            <%= v.name %>,
+          <% else %>
+            <%= v.name %>
+          <% end %>
         <% end %>
-    </p>
-<% end %>
+        voted
+        <%= link_to "hide",:controller => :posts,:action =>:toggle_voters %>
+      <% else %>
+        <%= link_to "#{count[1]}",:controller => :posts,:action =>:toggle_voters %> other people voted
+      <% end %>
+    <% end %>
+</p>
 
 <p>
     <% if session[:user_id] %>
