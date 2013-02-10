@@ -9,14 +9,12 @@
     <%= link_to 'toggle',:controller => :posts,:action => :toggle_voters %>
 </p>
 
-<% if params[:show_voters] %>
-    <% if true %>
-        <p>
-            <% votable.voters.each do |v| %>
-                <%= v.name %><br/>
-            <% end %>
-        </p>
-    <% end %>
+<% if session[:show_voters] == true %>
+    <p>
+        <% votable.voters(session[:user_id]).each do |v| %>
+            <%= v.name %><br/>
+        <% end %>
+    </p>
 <% end %>
 
 <p>

@@ -13,10 +13,12 @@ module VotablesHelper
     return @votes_count
   end
 
-  def voters
+  def voters(user_id)
     @voters = []
     self.votes.each do |v|
-      @voters << v.user
+      if v.user.id != user_id
+        @voters << v.user
+      end
     end
     return @voters
   end
