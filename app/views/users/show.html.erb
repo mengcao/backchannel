@@ -8,6 +8,11 @@
   <%= @user.password %>
 </p>
 
+<p>
+  <b>Administrator:</b>
+  <%=  @user.admin %>
+</p>
+
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

@@ -1,2 +1,11 @@
-<h1>Welcome, <%= User.find_by_id(session[:user_id]).name %></h1>
+<h1>Welcome,
+  <% if User.find_by_id(session[:user_id]).admin == true  %>
+      Admin
+  <% end %>
+  <%= User.find_by_id(session[:user_id]).name %></h1>
+
+<% if User.find_by_id(session[:user_id]).admin == true %>
+    <%= render :partial => 'users/admin_options' %>
+<% end %>
+
 <%= button_to 'log out',:controller => :users,:action => :logout %>

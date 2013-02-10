@@ -8,7 +8,7 @@
   </div>
   <div class="action">
     <% if session[:user_id] %>
-        <% if comment.user_id == session[:user_id] %>
+        <% if comment.user_id == session[:user_id]  || session[:user_admin] == true%>
             <%= link_to 'Edit',edit_comment_path(comment) %> | <%= link_to 'Delete',comment,:method => :delete,data:{confirm: 'Are you sure?'} %> |
         <% end %>
         <%= link_to 'Add comment',new_comment_comment_path(comment) %>
@@ -16,8 +16,8 @@
   </div>
 
   <% unless comment.comments.empty? %>
-    <ul class="comment_list">
-      <%= render :partial => 'comments/comment',:collection => comment.comments %>
-    </ul>
+      <ul class="comment_list">
+        <%= render :partial => 'comments/comment',:collection => comment.comments %>
+      </ul>
   <% end %>
 </li>
