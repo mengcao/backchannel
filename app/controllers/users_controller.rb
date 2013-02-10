@@ -91,7 +91,8 @@ class UsersController < ApplicationController
       session[:user_admin] = @user.admin
       redirect_to :back
     else
-      redirect_to new_user_path
+      flash[:error] = "Wrong user name or wrong password!"
+      redirect_to :back
     end
   end
 
