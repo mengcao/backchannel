@@ -98,6 +98,6 @@ class UsersController < ApplicationController
   def logout
     session[:user_id] = nil
     session[:user_admin] = nil
-    redirect_to :back
+    redirect_to :root
   end
 end
