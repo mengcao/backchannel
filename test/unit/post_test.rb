@@ -18,7 +18,7 @@ class PostTest < ActiveSupport::TestCase
     assert_equal(3, @myPost.votes.size)
   end
 
-  test 'should require title and body' do
+  test 'should require body and title' do
     p = Post.new
     assert(!(p.valid?), 'Should be false')
   end
@@ -47,9 +47,9 @@ class PostTest < ActiveSupport::TestCase
     assert true
   end
 
-  test 'can access count_vote' do
+  test 'can access count_votes' do
     c = Comment.new
-    assert_respond_to(c, :count_vote, 'Should be able to access count_vote')
+    assert_respond_to(c, :count_votes, 'Should be able to access count_vote')
   end
 
   test 'can access voters' do

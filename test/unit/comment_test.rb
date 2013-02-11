@@ -54,9 +54,19 @@ class CommentTest < ActiveSupport::TestCase
     assert(c.valid?, 'Should be true')
   end
 
-  test 'can access count_vote' do
+  test 'can access post' do
     c = Comment.new
-    assert_respond_to(c, :count_vote, 'Should be able to access count_vote')
+    assert_respond_to(c, :post, 'Should be able to access post')
+  end
+
+  test 'can access update_post' do
+    c = Comment.new
+    assert_respond_to(c, :update_post, 'Should be able to access update_post')
+  end
+
+  test 'can access count_votes' do
+    c = Comment.new
+    assert_respond_to(c, :count_votes, 'Should be able to access count_vote')
   end
 
   test 'can access voters' do
