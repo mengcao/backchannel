@@ -2,12 +2,12 @@ require 'test_helper'
 
 class PostsControllerTest < ActionController::TestCase
   setup do
-    @post = posts(:one)
-    @comment = comments(:one)
-    session[:user_id] = 1 #set as logged-in
-    session[:user_admin] = true #set as admin
-    session[:user_name] = 'meng' #requires an admin user to be logged in
-    @request.env['HTTP_REFERER'] = 'http://test.host/posts' #for :back redirect
+    @post = posts(:post_one)
+    @admin = users(:meng)
+    @user = users(:kenny)
+    session[:user_id] = @admin.id
+    session[:user_admin] = @admin.admin
+    session[:user_name] = @admin.name
   end
 
   test "should get index" do
@@ -22,8 +22,8 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "should create post" do
-    assert_difference('Post.count') do
-      post :create, post: { body: @post.body, title: @post.title, id: @post.id, category_id: @post.category_id, user_id: @post.user_id }
+    assert_difference('Post.count',+1) do
+      post :create, post: { body: @post.body, title: @post.title, user_id: 1, category_id: 1 }
     end
 
     assert_redirected_to post_path(assigns(:post))

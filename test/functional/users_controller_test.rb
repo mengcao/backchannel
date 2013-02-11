@@ -3,6 +3,9 @@ require 'test_helper'
 class UsersControllerTest < ActionController::TestCase
   setup do
     @user = users(:one)
+    session[:user_id] = 1
+    session[:admin] = true
+    session[:user_name] = 'meng'
   end
 
   test "should get index" do
@@ -18,10 +21,10 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should create user" do
     assert_difference('User.count') do
-      post :create, user: { name: @user.name, password: @user.password }
+      post :create, user: { name: 'mike', password: 'mike', password_confirmation: 'mike' }
     end
 
-    assert_redirected_to user_path(assigns(:user))
+    assert_redirected_to :root
   end
 
   test "should show user" do
@@ -35,7 +38,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should update user" do
-    put :update, id: @user, user: { name: @user.name, password: @user.password }
+    put :update, id: @user, user: { name: @user.name, password: @user.password, password_confirmation: @user.password }
     assert_redirected_to user_path(assigns(:user))
   end
 
@@ -43,7 +46,30 @@ class UsersControllerTest < ActionController::TestCase
     assert_difference('User.count', -1) do
       delete :destroy, id: @user
     end
-
     assert_redirected_to users_path
+  end
+
+  test "login with valid credential" do
+    request.env["HTTP_REFERER"] = "back"
+    get :login, :login => {:name => @user.name,:password => @user.password}
+    assert_equal @user.id,session[:user_id]
+    assert_equal @user.name,session[:user_name]
+    assert_equal @user.admin,session[:user_admin]
+    assert_redirected_to "back"
+  end
+
+  test "login with invalid credential" do
+    request.env["HTTP_REFERER"] = "back"
+    get :login,:login => {:name => @user.name,:password => "wrong_password"}
+    assert_equal "Wrong user name or wrong password!",flash[:notice]
+    assert_redirected_to "back"
+  end
+
+  test "log out" do
+    get :logout
+    assert_equal nil,session[:user_id]
+    assert_equal nil,session[:user_name]
+    assert_equal nil,session[:user_admin]
+    assert_redirected_to :root
   end
 end

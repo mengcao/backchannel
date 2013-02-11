@@ -2,48 +2,36 @@ require 'test_helper'
 
 class VotesControllerTest < ActionController::TestCase
   setup do
-    @vote = votes(:one)
+    @vote = votes(:vote_one)
+    @post = posts(:post_one)
+    @comment = comments(:comment_one)
   end
 
-  test "should get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:votes)
-  end
-
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
-
-  test "should create vote" do
-    assert_difference('Vote.count') do
-      post :create, vote: { votable_id: @vote.votable_id, votable_type: @vote.votable_type }
+  test "vote for a post" do
+    request.env["HTTP_REFERER"] = "back"
+    assert_difference('@post.votes.count',+1 ) do
+      post :create, :post_id => @post.id
     end
-
-    assert_redirected_to vote_path(assigns(:vote))
+    assert_redirected_to "back"
   end
 
-  test "should show vote" do
-    get :show, id: @vote
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get :edit, id: @vote
-    assert_response :success
-  end
-
-  test "should update vote" do
-    put :update, id: @vote, vote: { votable_id: @vote.votable_id, votable_type: @vote.votable_type }
-    assert_redirected_to vote_path(assigns(:vote))
-  end
-
-  test "should destroy vote" do
-    assert_difference('Vote.count', -1) do
-      delete :destroy, id: @vote
+  test "vote for a comment" do
+    request.env["HTTP_REFERER"] = "back"
+    assert_difference('@comment.votes.count',+1) do
+      post :create, :comment_id => @comment.id
     end
+    assert_redirected_to "back"
+  end
 
-    assert_redirected_to votes_path
+  test "unvote" do
+    request.env["HTTP_REFERER"] = "back"
+    if @vote.votable_type == "Post"
+      @votable = Post.find_by_id(@vote.votable_id)
+    else
+      @votable = Comment.find_by_id(@vote.votable_id)
+    end
+    assert_difference('@votable.votes.count',-1) do
+      delete :destroy, :id => @vote
+    end
   end
 end

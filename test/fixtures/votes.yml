@@ -1,11 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  votable_id: 3
-  votable_type: Post
-  user: meng
+vote_one:
+  votable: post_one(Post)
+  user: kenny
 
-two:
-  votable_id: 1
-  votable_type: Post
+vote_two:
+  votable: comment_one(Comment)
   user: kenny

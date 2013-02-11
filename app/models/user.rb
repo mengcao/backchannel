@@ -1,8 +1,6 @@
 class User < ActiveRecord::Base
-  attr_accessible :name, :password,:admin
+  attr_accessible :name, :password,:admin,:password_confirmation
   validates :name, :uniqueness => true
-
-  def login?
-    return session[:user_id]
-  end
+  validates :password, :confirmation => true
+  validates :password_confirmation,:presence => true
 end
