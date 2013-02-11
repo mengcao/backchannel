@@ -6,7 +6,7 @@ class CategoryTest < ActiveSupport::TestCase
   # end
   setup do
     @myCategory = Category.new
-    @myCategory = [Post.new, Post.new, Post.new]
+    @myCategory.posts = [Post.new, Post.new, Post.new]
   end
 
   test 'name is accessible' do
@@ -16,7 +16,7 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   test 'has many posts' do
-    assert_equal(@myCategory.count, 3)
+    assert_equal(3, @myCategory.posts.size)
   end
 
 end
