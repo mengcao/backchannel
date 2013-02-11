@@ -4,7 +4,9 @@
     <%= comment.body %>
   </div>
   <div class="vote">
-    <p>commenter: <%= comment.user.name %></p>
+    <% if comment.user != nil %>
+        <p>commenter: <%= comment.user.name %></p>
+    <% end %>
     <%= render :partial => "votes/vote",:locals => {:votable => comment} %>
   </div>
   <div class="action">

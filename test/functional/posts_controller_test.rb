@@ -3,6 +3,11 @@ require 'test_helper'
 class PostsControllerTest < ActionController::TestCase
   setup do
     @post = posts(:one)
+    @comment = comments(:one)
+    session[:user_id] = 1 #set as logged-in
+    session[:user_admin] = true #set as admin
+    session[:user_name] = 'meng' #requires an admin user to be logged in
+    @request.env['HTTP_REFERER'] = 'http://test.host/posts' #for :back redirect
   end
 
   test "should get index" do
@@ -18,7 +23,7 @@ class PostsControllerTest < ActionController::TestCase
 
   test "should create post" do
     assert_difference('Post.count') do
-      post :create, post: { body: @post.body, title: @post.title }
+      post :create, post: { body: @post.body, title: @post.title, id: @post.id, category_id: @post.category_id, user_id: @post.user_id }
     end
 
     assert_redirected_to post_path(assigns(:post))
