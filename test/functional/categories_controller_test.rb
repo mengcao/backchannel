@@ -3,7 +3,7 @@ require 'test_helper'
 class CategoriesControllerTest < ActionController::TestCase
 
   setup do
-    @category = categories(:one)
+    @category = categories(:category_one)
     session[:user_id] = 1 #set as logged-in
     session[:user_admin] = true #set as admin
     session[:user_name] = 'meng' #requires an admin user to be logged in

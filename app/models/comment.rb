@@ -1,5 +1,6 @@
 class Comment < ActiveRecord::Base
   include VotablesHelper
+  include CommentablesHelper
   belongs_to :user
   belongs_to :commentable,:polymorphic => true
   has_many :comments,:as => :commentable,:dependent => :destroy

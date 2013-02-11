@@ -1,6 +1,6 @@
 module VotablesHelper
   attr_accessor :show_voters
-  def count_vote (user_id)
+  def count_votes (user_id)
     @votes = self.votes
     @votes_count = Array.new(2)
     if @votes.where(:user_id => user_id).count != 0

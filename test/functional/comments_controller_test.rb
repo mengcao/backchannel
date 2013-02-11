@@ -2,52 +2,49 @@ require 'test_helper'
 
 class CommentsControllerTest < ActionController::TestCase
   setup do
-    @comment = comments(:one)
-    session[:user_id] = 1 #set as logged-in
-    session[:user_admin] = true #set as admin
-    session[:user_name] = 'meng' #requires an admin user to be logged in
-    @request.env['HTTP_REFERER'] = 'http://test.host/comments' #for :back redirect
+    @comment = comments(:comment_one)
+    @post = posts(:post_one)
+    @comment_2 = comments(:comment_two)
+    @admin = users(:meng)
+    @user = users(:kenny)
+    session[:user_id] = @admin.id
+    session[:user_admin] = @admin.admin
+    session[:user_name] = @admin.name
+    get :new, :post_id => @post.id
+    request.env["HTTP_REFERER"] = "back" #for :back redirect
   end
 
-  test "should get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:comments)
-  end
-
-  test "should get new" do
-    get :new
+  test "new comment on a post" do
     assert_response :success
   end
 
-  test "should create comment" do
-    assert_difference('Comment.count') do
-      post :create, comment: {body: @comment.body, commentable_id: @comment.commentable_id, commentable_type: @comment.commentable_type, param: {comment: 1} }
+  test "create comment on a post" do
+    assert_difference('@post.comments.count',+1) do
+      post :create, comment: {body: 'comment'},:post_id => @post.id
     end
 
-    assert_redirected_to comment_path(assigns(:comment))
+    assert_redirected_to post_path(@post)
   end
 
-  test "should show comment" do
-    get :show, id: @comment
+  test "new comment on a comment" do
+    get :new, :comment_id => @comment_2.id
     assert_response :success
   end
 
-  test "should get edit" do
+  test "user wants to edit own comment" do
     get :edit, id: @comment
     assert_response :success
   end
 
   test "should update comment" do
-    put :update, id: @comment, comment: { body: @comment.body, commentable_id: @comment.commentable_id, commentable_type: @comment.commentable_type }
-    assert_redirected_to comment_path(assigns(:comment))
+    put :update, id: @comment, comment: { body: @comment.body }
+    assert_redirected_to "back"
   end
 
   test "should destroy comment" do
-    assert_difference('Comment.count', -1) do
+    assert_difference('Comment.count', -(1 + @comment.count_comments)) do
       delete :destroy, id: @comment
     end
-
-    assert_redirected_to comments_path
+    assert_redirected_to "back"
   end
 end

@@ -1,16 +1,16 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
+meng:
   name: meng
   password: meng
   admin: true
 
-two:
+kenny:
   name: kenny
   password: kenny
   admin: false
 
-three:
+csc:
   name: csc
   password: 517
   admin: false

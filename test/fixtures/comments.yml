@@ -1,19 +1,31 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
+comment_one:
   body: 'Comment to post one'
-  user_id: 1
-  commentable_id: 1
-  commentable_type: 'Post'
+  user: meng
+  commentable: post_one(Post)
 
-two:
+comment_two:
   body: 'Comment to a post'
-  user_id: 3
-  commentable_id: 2
-  commentable_type: 'Post'
+  user: kenny
+  commentable: post_two(Post)
 
-three:
+comment_three:
   body: 'Comment on a comment'
-  user_id: 2
-  commentable_id: 6
-  commentable_type: 'Comment'
+  user: kenny
+  commentable: comment_one(Comment)
+
+comment_four:
+  body: 'Comment on a comment on a comment'
+  user: meng
+  commentable: comment_three(Comment)
+
+comment_five:
+  body: 'comment on a comment on a comment on a comment'
+  user: meng
+  commentable: comment_four(Comment)
+
+comment_six:
+  body: 'second comment on comment three'
+  user: meng
+  commentable: comment_three(Comment)

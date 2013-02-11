@@ -1,4 +1,4 @@
-<% count = votable.count_vote(session[:user_id]) %>
+<% count = votable.count_votes(session[:user_id]) %>
 <% voters = votable.voters(session[:user_id]) %>
 <p>
   <% if count.sum != 0 %>
