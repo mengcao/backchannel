@@ -5,6 +5,7 @@ class CategoryTest < ActiveSupport::TestCase
   #   assert true
   # end
   setup do
+    @myCategory = Category.new
     @myCategory = [Post.new, Post.new, Post.new]
   end
 
