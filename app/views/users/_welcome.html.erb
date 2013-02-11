@@ -1,10 +1,10 @@
 <h3>Welcome,
-  <% if User.find_by_id(session[:user_id]).admin == true  %>
+  <% if session[:user_admin] == true  %>
       Admin
   <% end %>
-  <%= User.find_by_id(session[:user_id]).name %></h3>
+  <%= session[:user_name] %></h3>
 
-<% if User.find_by_id(session[:user_id]).admin == true %>
+<% if session[:user_admin] == true %>
     <%= render :partial => 'users/admin_options' %>
 <% else %>
     <%=  render :partial => 'users/general_options' %>

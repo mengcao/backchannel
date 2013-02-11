@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  votable_id: 1
-  votable_type: MyString
-  user: 
+  votable_id: 3
+  votable_type: Post
+  user: meng
 
 two:
   votable_id: 1
-  votable_type: MyString
-  user: 
+  votable_type: Post
+  user: kenny

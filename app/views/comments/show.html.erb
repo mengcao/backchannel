@@ -5,7 +5,9 @@
 
 <p>
   <b>User:</b>
-  <%= @comment.user.name %>
+  <% if @comment.user != nil %>
+      <%= @comment.user.name %>
+  <% end %>
 </p>
 
 <p>
