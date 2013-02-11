@@ -3,6 +3,10 @@ require 'test_helper'
 class CommentsControllerTest < ActionController::TestCase
   setup do
     @comment = comments(:one)
+    session[:user_id] = 1 #set as logged-in
+    session[:user_admin] = true #set as admin
+    session[:user_name] = 'meng' #requires an admin user to be logged in
+    @request.env['HTTP_REFERER'] = 'http://test.host/comments' #for :back redirect
   end
 
   test "should get index" do
@@ -18,7 +22,7 @@ class CommentsControllerTest < ActionController::TestCase
 
   test "should create comment" do
     assert_difference('Comment.count') do
-      post :create, comment: { body: @comment.body, commentable_id: @comment.commentable_id, commentable_type: @comment.commentable_type }
+      post :create, comment: {body: @comment.body, commentable_id: @comment.commentable_id, commentable_type: @comment.commentable_type, param: {comment: 1} }
     end
 
     assert_redirected_to comment_path(assigns(:comment))

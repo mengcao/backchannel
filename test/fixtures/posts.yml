@@ -1,11 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  title: MyString
-  body: MyText
-  user: 
+  title: Post One
+  body: This is the first post.  Please add two comments later.
+  user: meng
+  id: 1
 
 two:
-  title: MyString
-  body: MyText
-  user: 
+  title: Post Two
+  body: This is the second post.
+  user: kenny
+  id: 2
+
+three:
+  title: Post Three
+  body: No searching this post.
+  user: csc
+  id: 3

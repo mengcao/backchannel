@@ -14,7 +14,11 @@
 <% @comments.each do |comment| %>
   <tr>
     <td><%= comment.body %></td>
-    <td><%= comment.user.name %></td>
+
+    <% if comment.user != nil %>
+        <td><%= comment.user.name %></td>
+    <% end %>
+
     <td><%= comment.commentable_id %></td>
     <td><%= comment.commentable_type %></td>
     <td><%= link_to 'Show', comment %></td>

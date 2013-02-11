@@ -94,6 +94,7 @@ class UsersController < ApplicationController
     if @user
       session[:user_id] = @user.id
       session[:user_admin] = @user.admin
+      session[:user_name] = @user.name
       redirect_to :back
     else
       flash[:error] = "Wrong user name or wrong password!"
