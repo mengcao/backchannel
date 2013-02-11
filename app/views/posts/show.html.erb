@@ -2,9 +2,11 @@
   <h1><%= @post.title %></h1>
 </div>
 
-<div class="info">
-  <p>creator: <%= @post.user.name %> | category: <%= @post.category.name %></p>
-</div>
+<% if @post.user != nil && @post.category != nil%>
+    <div class="info">
+        <p>creator: <%= @post.user.name %> | category: <%= @post.category.name %></p>
+    </div>
+<% end %>
 
 <div class="vote">
   <%= render :partial => "votes/vote",:locals => {:votable => @post} %>

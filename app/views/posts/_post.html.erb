@@ -1,5 +1,7 @@
 <% @posts.each do |post| %>
     <h2><%= link_to post.title, post %></h2>
-    <p>creator: <%= post.user.name %> | category: <%= post.category.name %></p>
+    <% if post.user != nil %>
+        <p>creator: <%= post.user.name %> | category: <%= post.category.name %></p>
+    <% end %>
     <hr/>
 <% end %>
