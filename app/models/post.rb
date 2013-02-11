@@ -8,11 +8,11 @@ class Post < ActiveRecord::Base
   validates :title,:presence => true
   validates :body,:presence => true
   def self.search(criteria)
-    @results = self.order('updated_at DESC')
+    @results = self.find(:all)
     if criteria
       if criteria[:content] != ''
         @comment_results = Comment.where('body like ?',"%#{criteria[:content]}%")
-        @results = @results.where('body like ? OR title like ?', "%#{criteria[:content]}%","%#{criteria[:content]}%")
+        @results.select! {|r| r.body.downcase.include?(criteria[:content].downcase) || r.title.downcase.include?(criteria[:content].downcase)}
         @comment_results.each do |r|
           p = r.post
           if !@results.include?(p)
@@ -21,12 +21,13 @@ class Post < ActiveRecord::Base
         end
       end
       if criteria[:user_id] != ''
-        @results = @results.where(:user_id => criteria[:user_id])
+        @results.select! {|r| r.user_id == criteria[:user_id].to_i}
       end
       if criteria[:category_id] != ''
-        @results = @results.where(:category_id => criteria[:category_id])
+        @results.select! {|r| r.category_id == criteria[:category_id].to_i}
       end
     end
-    return @results.where(nil)
+    @results.sort!  {|x,y| y.updated_at <=> x.updated_at}
+    return @results
   end
 end

@@ -19,6 +19,18 @@ class PostsController < ApplicationController
   # GET /posts/1.json
   def show
     @post = Post.find(params[:id])
+    if !session[:show_voters]
+      session[:show_voters] = Hash.new
+      session[:show_voters][:comments] = []
+      session[:show_voters][:post] = false
+    else
+      if !session[:show_voters][:post]
+        session[:show_voters][:post] = false
+      end
+      if !session[:show_voters][:comments]
+        session[:show_voters][:comments] = []
+      end
+    end
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @post }
@@ -94,11 +106,11 @@ class PostsController < ApplicationController
   end
 
   def toggle_voters
-      if session[:show_voters] == true
-        session[:show_voters] = false
-      else
-        session[:show_voters] = true
-      end
+    if session[:show_voters][:post] == true
+      session[:show_voters][:post] = false
+    else
+      session[:show_voters][:post] = true
+    end
     redirect_to :back
   end
 end

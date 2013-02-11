@@ -10,6 +10,9 @@ Backchannel::Application.routes.draw do
   resources :votes
 
   resources :comments do
+    member do
+      get :toggle_voters
+    end
     resources :comments
     resources :votes
   end
@@ -17,7 +20,7 @@ Backchannel::Application.routes.draw do
 
   resources :posts do
     member do
-      get 'toggle_voters'
+      get :toggle_voters
     end
     resources :comments
     resources :votes

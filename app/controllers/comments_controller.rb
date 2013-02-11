@@ -2,8 +2,9 @@ class CommentsController < ApplicationController
   # GET /comments
   # GET /comments.json
   before_filter :get_parent,:owner?,:login?
-  skip_before_filter :owner?,:only => [:index,:show,:new,:create]
-  skip_before_filter :get_parent,:only => [:index,:show,:edit,:update,:destroy]
+  skip_before_filter :owner?,:only => [:index,:show,:new,:create,:toggle_voters]
+  skip_before_filter :get_parent,:only => [:index,:show,:edit,:update,:destroy,:toggle_voters]
+  skip_before_filter :login?,:only => [:toggle_voters]
 
   def index
     @comments = Comment.all
@@ -87,11 +88,14 @@ class CommentsController < ApplicationController
     end
   end
 
-  protected
-  def get_parent
-    @parent = Post.find_by_id(params[:post_id]) if params[:post_id]
-    @parent = Comment.find_by_id(params[:comment_id]) if params[:comment_id]
-    redirect_to root_path unless defined?(@parent)
+  def toggle_voters
+    @id = params[:comment_id].to_i
+    if session[:show_voters][:comments].include?(@id)
+      session[:show_voters][:comments].delete(@id)
+    else
+      session[:show_voters][:comments].push(@id)
+    end
+    redirect_to :back
   end
 
   def owner?
@@ -99,5 +103,12 @@ class CommentsController < ApplicationController
     if @comment.user_id != session[:user_id]
       redirect_to post_path(@comment.post), notice: 'You are not the owner of this comment.'
     end
+  end
+
+  protected
+  def get_parent
+    @parent = Post.find_by_id(params[:post_id]) if params[:post_id]
+    @parent = Comment.find_by_id(params[:comment_id]) if params[:comment_id]
+    redirect_to root_path unless defined?(@parent)
   end
 end
