@@ -41,6 +41,9 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     assert_redirected_to post_path(@post)
 
     # comment on a comment
+    get new_comment_comment_path(@comment)
+    assert_response :success
+
     post comment_comments_path(@comment),{:comment => {:body => 'create comment on a comment'},:comment_id => @comment.id}
     assert_redirected_to post_path(@comment.post)
 
@@ -70,6 +73,11 @@ class UserFlowsTest < ActionDispatch::IntegrationTest
     # delete one's own comment
     delete comment_path(@kennys_comment)
     assert_redirected_to post_path(@kennys_comment.post)
+
+    # edit others comment
+    get edit_comment_path(@comment)
+    assert_equal 'You are not the owner of this comment.',flash[:notice]
+    assert_redirected_to post_path(@comment.post)
 
     # vote for a post
     post post_votes_path(@post), {:post_id => @post.id},{"HTTP_REFERER" => post_path(@post)}
