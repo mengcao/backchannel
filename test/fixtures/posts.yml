@@ -1,19 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 post_one:
-  title: Post One
-  body: This is the first post.  Please add two comments later.
+  title: 'Post One'
+  body: 'This is the first post.  Please add two comments later.'
   user: meng
   category: category_one
 
 post_two:
-  title: Post Two
-  body: This is the second post.
+  title: 'Post Two'
+  body: 'This is the second post.'
   user: kenny
   category: category_two
 
 post_three:
-  title: Post Three
-  body: No searching this post.
+  title: 'Post Three'
+  body: 'No searching this post.'
   user: csc
   category: category_two

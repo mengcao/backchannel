@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
 
   def login?
     if (session[:user_id] == nil)
+      flash[:notice] = 'Please login first. '
       redirect_to :root
     end
   end

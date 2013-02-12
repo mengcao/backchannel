@@ -6,7 +6,7 @@ comment_one:
   commentable: post_one(Post)
 
 comment_two:
-  body: 'Comment to a post'
+  body: 'Comment to one post'
   user: kenny
   commentable: post_two(Post)
 
