@@ -1,6 +1,6 @@
 <% count = votable.count_votes(session[:user_id]) %>
 <% voters = votable.voters(session[:user_id]) %>
-<p>
+<p><font color = "#5f9ea0" size="1">
   <% if count.sum != 0 %>
     <% if count[0] == 0 %>
       <% if votable.is_a?(Post) %>
@@ -68,7 +68,7 @@
           <% end %>
     <% end %>
   <% end %>
-</p>
+</font></p>
 
 <p>
     <% if session[:user_id] %>

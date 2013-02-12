@@ -12,11 +12,9 @@
 
 <div class="body">
   <p>
-    <%= @post.body %>
+    <font size="3"><%= @post.body %></font>
   </p>
 </div>
-
-<hr/>
 
 <div class="vote">
   <%= render :partial => "votes/vote",:locals => {:votable => @post} %>
