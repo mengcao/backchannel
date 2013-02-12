@@ -99,9 +99,11 @@ class PostsController < ApplicationController
   end
 
   def owner?
-    @post = Post.find(params[:id])
-    if @post.user_id != session[:user_id]
-      redirect_to post_path(@post), notice: 'You are not the owner of this post.'
+    if User.find_by_id(session[:user_id]).admin == false
+      @post = Post.find(params[:id])
+      if @post.user_id != session[:user_id]
+        redirect_to post_path(@post), notice: 'You are not the owner of this post.'
+      end
     end
   end
 

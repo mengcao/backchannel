@@ -99,9 +99,11 @@ class CommentsController < ApplicationController
   end
 
   def owner?
-    @comment = Comment.find(params[:id])
-    if @comment.user_id != session[:user_id]
-      redirect_to post_path(@comment.post), notice: 'You are not the owner of this comment.'
+    if User.find_by_id(session[:user_id]).admin == false
+      @comment = Comment.find(params[:id])
+      if @comment.user_id != session[:user_id]
+        redirect_to post_path(@comment.post), notice: 'You are not the owner of this comment.'
+      end
     end
   end
 
