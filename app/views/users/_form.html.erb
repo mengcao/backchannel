@@ -23,7 +23,7 @@
       <%= f.password_field :password_confirmation, :value => @user.password %>
     </div>
 
-    <% if session[:user_admin] == true %>
+    <% if session[:user_admin] == true && session[:user_id] != @user.id %>
         <div class="field">
         <%= f.label :admin %><br />
         <%= select(:user, :admin, options_for_select([['Yes', true], ['No', false]], @user.admin))%>
