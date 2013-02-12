@@ -2,10 +2,11 @@ require 'test_helper'
 
 class UsersControllerTest < ActionController::TestCase
   setup do
-    @user = users(:one)
-    session[:user_id] = 1
-    session[:admin] = true
-    session[:user_name] = 'meng'
+    @user = users(:meng)
+    session[:user_id] = @user.id
+    session[:admin] = @user.admin
+    session[:user_name] = @user.name
+    request.env["HTTP_REFERER"] = "back"
   end
 
   test "should get index" do
@@ -50,7 +51,6 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "login with valid credential" do
-    request.env["HTTP_REFERER"] = "back"
     get :login, :login => {:name => @user.name,:password => @user.password}
     assert_equal @user.id,session[:user_id]
     assert_equal @user.name,session[:user_name]
@@ -59,7 +59,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "login with invalid credential" do
-    request.env["HTTP_REFERER"] = "back"
+
     get :login,:login => {:name => @user.name,:password => "wrong_password"}
     assert_equal "Wrong user name or wrong password!",flash[:notice]
     assert_redirected_to "back"
