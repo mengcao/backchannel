@@ -7,6 +7,7 @@ class Comment < ActiveRecord::Base
   has_many :votes, :as => :votable,:dependent => :destroy
   attr_accessible :body, :commentable_id, :commentable_type,:user_id
   validates :body,:presence => true
+  validates :user_id,:presence => true
 
   def post
     return @post if defined?(@post)

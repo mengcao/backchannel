@@ -18,9 +18,17 @@ class PostTest < ActiveSupport::TestCase
     assert_equal(3, @myPost.votes.size)
   end
 
-  test 'should require body and title' do
+  test 'should have necessary requires' do
     p = Post.new
     assert(!(p.valid?), 'Should be false')
+    p.title = 'title'
+    assert(!p.valid?, 'Should be false')
+    p.body = 'body'
+    assert(!p.valid?, 'Should be false')
+    p.user_id = 1
+    assert(!p.valid?, 'Should be false')
+    p.category_id = 1
+    assert(p.valid?, 'Should be true')
   end
 
   test 'body is accessible' do

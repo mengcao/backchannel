@@ -50,7 +50,10 @@ class CommentTest < ActiveSupport::TestCase
 
   test 'should have necessary requires' do
     c = Comment.new
+    assert(!c.valid?, 'Should be false')
     c.body = 'body'
+    assert(!c.valid?, 'Should be false')
+    c.user_id = 1
     assert(c.valid?, 'Should be true')
   end
 

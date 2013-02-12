@@ -1,11 +1,11 @@
 <%= form_tag('posts',:method => :get) do %>
     <table>
       <tr>
-        <td><%= label_tag('search[content]','Content: ') %></td>
+        <td><%= label_tag('search[content]','Keyword: ') %></td>
         <td><%= search_field_tag('search[content]') %></td>
       </tr>
       <tr>
-        <td><%= label_tag('search[user_id]','User: ') %></td>
+        <td><%= label_tag('search[user_id]','Creator: ') %></td>
         <td><%= select_tag('search[user_id]',options_from_collection_for_select(User.all,:id,:name),:include_blank =>true) %></td>
       </tr>
       <tr>

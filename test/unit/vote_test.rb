@@ -17,6 +17,13 @@ class VoteTest < ActiveSupport::TestCase
     assert true
   end
 
+  test 'should have requires' do
+    v = Vote.new
+    assert(!v.valid?,'should be false')
+    v.user_id = 1
+    assert(v.valid?,'should be true')
+  end
+
   test 'user_id is accessible' do
     v = Vote.new
     v.user_id = 1 #if no error, this works

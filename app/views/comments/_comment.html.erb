@@ -1,11 +1,16 @@
 <li class="comment">
+  <% if comment.user != nil %>
+      <div class="info">
+        <p>commenter: <%= comment.user.name %></p>
+      </div>
+  <% end %>
+
+  <hr/>
   <div class="body">
     <%= comment.body %>
   </div>
+  <hr/>
   <div class="vote">
-    <% if comment.user != nil %>
-        <p>commenter: <%= comment.user.name %></p>
-    <% end %>
     <%= render :partial => "votes/vote",:locals => {:votable => comment} %>
   </div>
   <div class="action">
@@ -16,6 +21,7 @@
         <%= link_to 'Add comment',new_comment_comment_path(comment) %>
     <% end %>
   </div>
+  <hr/>
 
   <% unless comment.comments.empty? %>
       <ul class="comment_list">
