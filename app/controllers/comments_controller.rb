@@ -1,10 +1,10 @@
 class CommentsController < ApplicationController
   # GET /comments
   # GET /comments.json
-  before_filter :get_parent,:owner?,:login?
-  skip_before_filter :owner?,:only => [:index,:show,:new,:create,:toggle_voters]
-  skip_before_filter :get_parent,:only => [:index,:show,:edit,:update,:destroy,:toggle_voters]
-  skip_before_filter :login?,:only => [:toggle_voters]
+  before_filter :get_parent,:only => [:new,:create]
+  before_filter :owner?,:only => [:edit,:update,:destroy]
+  before_filter :login?, :only => [:new,:create,:edit,:update,:destroy]
+  before_filter :admin?, :only => :index
 
   def index
     @comments = Comment.all

@@ -6,4 +6,4 @@ vote_one:
 
 vote_two:
   votable: comment_one(Comment)
-  user: kenny
+  user: meng

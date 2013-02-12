@@ -5,6 +5,10 @@ class VotesControllerTest < ActionController::TestCase
     @vote = votes(:vote_one)
     @post = posts(:post_one)
     @comment = comments(:comment_one)
+    @admin = users(:meng)
+    session[:user_id] = @admin.id
+    session[:user_admin] = @admin.admin
+    session[:user_name] = @admin.name
   end
 
   test "vote for a post" do

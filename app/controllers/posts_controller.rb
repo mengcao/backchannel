@@ -1,10 +1,8 @@
 class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
-  before_filter :owner?
-  before_filter :login?
-  skip_before_filter :login?, :only => [:index,:show,:toggle_voters]
-  skip_before_filter :owner?, :only => [:index,:show,:create,:new,:toggle_voters]
+  before_filter :owner?, :only => [:edit,:update,:destroy]
+  before_filter :login?, :only => [:new,:create,:edit,:update,:destroy]
 
   def index
     @posts = Post.search(params[:search])

@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
 
   def admin?
     if (session[:user_admin] == false)
+      flash[:notice] = 'You do not have the access to this page.'
       redirect_to :root
     end
   end

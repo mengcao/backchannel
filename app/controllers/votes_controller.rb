@@ -3,6 +3,8 @@ class VotesController < ApplicationController
   # GET /votes.json
   before_filter :get_parent
   skip_before_filter :get_parent,:only => :destroy
+  before_filter :admin?,:only => :index
+  before_filter :owner?,:only => [:edit,:update,:destroy]
 
   def index
     @votes = Vote.all
@@ -82,8 +84,17 @@ class VotesController < ApplicationController
     @vote.destroy
 
     respond_to do |format|
-      format.html { redirect_to :back,:notice => 'un-vote successfully.' }
+      format.html { redirect_to :back,:notice => 'Un-vote successfully.' }
       format.json { head :no_content }
+    end
+  end
+
+  def owner?
+    if User.find_by_id(session[:user_id]).admin == false
+      @vote = Vote.find(params[:id])
+      if @vote.user_id != session[:user_id]
+        redirect_to :back, notice: 'You are not the owner of this vote.'
+      end
     end
   end
 
@@ -93,4 +104,5 @@ class VotesController < ApplicationController
     @parent = Comment.find_by_id(params[:comment_id]) if params[:comment_id]
     redirect_to root_path unless defined?(@parent)
   end
+
 end
