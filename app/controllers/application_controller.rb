@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  # before_filter :login?
 
   def login?
     if (session[:user_id] == nil)
@@ -13,6 +12,13 @@ class ApplicationController < ActionController::Base
     if (session[:user_admin] == false)
       flash[:notice] = 'You do not have the access to this page.'
       redirect_to :root
+    end
+  end
+
+  def empty_category?
+    if Category.count == 0
+      flash[:notice] = 'Create at lease one category before posting.'
+      redirect_to :back
     end
   end
 end

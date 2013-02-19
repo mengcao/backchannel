@@ -3,6 +3,7 @@ class PostsController < ApplicationController
   # GET /posts.json
   before_filter :owner?, :only => [:edit,:update,:destroy]
   before_filter :login?, :only => [:new,:create,:edit,:update,:destroy]
+  before_filter :empty_category?,:only => :new
 
   def index
     @posts = Post.search(params[:search])
