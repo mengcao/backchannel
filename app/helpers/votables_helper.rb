@@ -17,8 +17,10 @@ module VotablesHelper
   def voters(user_id)
     @voters = []
     self.votes.each do |v|
-      if v.user.id != user_id
-        @voters << v.user
+      if !v.user.nil?
+        if v.user.id != user_id
+          @voters << v.user
+        end
       end
     end
     return @voters

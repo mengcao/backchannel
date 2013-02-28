@@ -21,9 +21,9 @@
           <% if session[:show_voters][:comments].include?(votable.id)%>
             <% voters.each do |v| %>
                 <% if v != voters.last %>
-                    <%= v.name %>,
+                    <%= v.nil? ? 'unknown user' : v.name %>,
                 <% else %>
-                    <%= v.name %>
+                    <%= v.nil? ? 'unknown user' : v.name %>
                 <% end %>
             <% end %>
             voted
@@ -40,9 +40,9 @@
               <% if session[:show_voters][:post] == true %>
                   <% voters.each do |v| %>
                       <% if v != voters.last %>
-                          <%= v.name %>,
+                          <%= v.nil? ? 'unknown user' : v.name %>,
                       <% else %>
-                          <%= v.name %>
+                          <%= v.nil? ? 'unknown user' : v.name %>
                       <% end %>
                   <% end %>
                   voted
@@ -55,9 +55,9 @@
               <% if session[:show_voters][:comments].include?(votable.id)%>
                   <% voters.each do |v| %>
                       <% if v != voters.last %>
-                          <%= v.name %>,
+                          <%= v.nil? ? 'unknown user' : v.name %>,
                       <% else %>
-                          <%= v.name %>
+                          <%= v.nil? ? 'unknown user' : v.name %>
                       <% end %>
                   <% end %>
                   voted
