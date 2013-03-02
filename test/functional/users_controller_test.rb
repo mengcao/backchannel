@@ -6,6 +6,7 @@ class UsersControllerTest < ActionController::TestCase
     session[:user_id] = @user.id
     session[:admin] = @user.admin
     session[:user_name] = @user.name
+    @non_current_user = users(:kenny)
     request.env["HTTP_REFERER"] = "back"
   end
 
@@ -45,7 +46,7 @@ class UsersControllerTest < ActionController::TestCase
 
   test "should destroy user" do
     assert_difference('User.count', -1) do
-      delete :destroy, id: @user
+      delete :destroy, id: @non_current_user
     end
     assert_redirected_to users_path
   end
